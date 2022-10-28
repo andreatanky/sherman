@@ -35,7 +35,7 @@ const UserDetailsForm = () => {
         setPhoneNumber("");
         
         setOpen(true)
-        setIsError(true)
+        setIsError(false)
     };
 
 
@@ -133,7 +133,8 @@ const UserDetailsForm = () => {
                     </button>
                 </div>
             </form>
-            {open ? <SuccessModal open={open} setOpen={setOpen}/> : undefined}
+            {open ? (isError ? <ErrorAlert open={open} setOpen={setOpen}/> :
+                <SuccessModal open={open} setOpen={setOpen}/> ): undefined}
         </div>
     )
 };
