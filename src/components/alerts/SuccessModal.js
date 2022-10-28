@@ -17,7 +17,7 @@ const SuccessModal = ({isError, setIsError, open, setOpen}) => {
                >
                    <VscChromeClose />
                </button>
-               <div className="w-96 bg-green-50 h-96 bg-white rounded-2xl">
+               <div className="w-96 bg-confetti bg-cover shadow-xl h-96 bg-green-50 rounded-2xl">
                    <div className="flex justify-center">
                        <CheckCircleIcon className="h-40 mt-10 w-40 text-green-400"/>
                    </div>

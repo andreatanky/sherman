@@ -28,11 +28,12 @@ const UserDetailsForm = () => {
 
     const handleVerification = async (event) => {
         event.preventDefault();
-
-        console.log(firstName)
-        console.log(lastName)
-        console.log(age)
-        console.log(phoneNumber)
+        // Back-end call
+        setFirstName("");
+        setLastName("");
+        setAge("");
+        setPhoneNumber("");
+        
         setOpen(true)
         setIsError(true)
     };
