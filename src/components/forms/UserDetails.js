@@ -45,7 +45,9 @@ const UserDetailsForm = () => {
                 <div className="max-w-2xl justify-center sm:rounded-lg">
                     <div className="space-y-6 py-6 px-4 sm:p-6">
                         <div className="md:col-span-1 text-left p-3 block">
-                            <h3 className="font-semibold text-xl text-gray-900">Personal Details</h3>
+                            <h3 className="font-semibold text-xl text-gray-900">Complete this survey and get $2 off when you spend a min. $10 in store. </h3>
+                            <p className="mt-2 text-lg text-gray-500">Please key in a valid mobile number to receive your verification pin.</p>
+
                             <p className="mt-2 text-lg text-gray-500">Please key in a valid mobile number to receive your verification pin.</p>
                         </div>
                         <div>
