@@ -40,7 +40,6 @@ const UserDetailsForm = () => {
 
     return (
         <div>
-            {open ? <SuccessModal open={open} setOpen={setOpen}/> : undefined}
             <form onSubmit={handleVerification} className="max-w-2xl h-fit m-20 shadow-xl rounded-lg bg-white" action="#" method="POST">
                 <div className="max-w-2xl justify-center sm:rounded-lg">
                     <div className="space-y-6 py-6 px-4 sm:p-6">
@@ -133,6 +132,7 @@ const UserDetailsForm = () => {
                     </button>
                 </div>
             </form>
+            {open ? <SuccessModal open={open} setOpen={setOpen}/> : undefined}
         </div>
     )
 };
