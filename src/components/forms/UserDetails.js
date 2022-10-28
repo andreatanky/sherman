@@ -10,6 +10,7 @@ const UserDetailsForm = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [age, setAge] = useState("");
+    const [country, setCountry] = useState("65");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [isError, setIsError] = useState(false);
     const [open, setOpen] = useState(false);
@@ -30,13 +31,19 @@ const UserDetailsForm = () => {
         setPhoneNumber(event.target.value);
     }
 
+    const handleCountryChange = (event) => {
+        setCountry(event.target.value);
+    }
+
     const handleVerification = async (event) => {
         event.preventDefault();
+
         // Back-end call
         setFirstName("");
         setLastName("");
         setAge("");
         setPhoneNumber("");
+        setCountry("");
         
         setOpen(true)
         setIsError(false)
@@ -109,13 +116,16 @@ const UserDetailsForm = () => {
                                             Country
                                         </label>
                                         <select
+                                            onChange={handleCountryChange}
+                                            value={country}
+                                            required
                                             id="country"
                                             name="country"
                                             autoComplete="country"
                                             className="h-full rounded-md mb-2 border-transparent bg-transparent py-0 pl-2 pr-1 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         >
                                             {countries_code.map(code => (
-                                                <option>+{code}</option>
+                                                <option value={code}>+{code}</option>
                                             ))}
                                         </select>
                                     </div>
