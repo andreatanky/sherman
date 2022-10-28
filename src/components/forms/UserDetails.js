@@ -1,6 +1,10 @@
 import React, { useContext, useState, useCallback } from "react";
 import ErrorAlert from "../alerts/ErrorAlert";
 import SuccessModal from "../alerts/SuccessModal";
+const countryCodes = require('country-codes-list')
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import countries_code from "../../data/data";
 
 const UserDetailsForm = () => {
     const [firstName, setFirstName] = useState("");
@@ -37,6 +41,7 @@ const UserDetailsForm = () => {
         setOpen(true)
         setIsError(false)
     };
+
 
 
     return (
@@ -107,11 +112,11 @@ const UserDetailsForm = () => {
                                             id="country"
                                             name="country"
                                             autoComplete="country"
-                                            className="h-full rounded-md mb-2 border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="h-full rounded-md mb-2 border-transparent bg-transparent py-0 pl-2 pr-1 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         >
-                                            <option>SG</option>
-                                            <option>US</option>
-                                            <option>EU</option>
+                                            {countries_code.map(code => (
+                                                <option>+{code}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <input
@@ -126,6 +131,11 @@ const UserDetailsForm = () => {
                                     />
                                 </div>
                             </div>
+                            {/*<PhoneInput*/}
+                            {/*    placeholder="Enter phone number"*/}
+                            {/*    value={phoneNumber}*/}
+                            {/*    country="US"*/}
+                            {/*    onChange={handlePhoneNumberChange}/>*/}
                         </div>
                     </div>
                     <button type="submit" className="bg-indigo-500 py-2 px-3 rounded-md shadow-lg text-white font-medium shadow-indigo-500/50 m-7">
