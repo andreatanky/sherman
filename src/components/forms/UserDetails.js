@@ -70,7 +70,11 @@ const UserDetailsForm = () => {
         const personInfo = {
             name: firstName + " " + lastName,
             phoneNum: "+" + country + phoneNumber,
-            age: age
+            age: age,
+            first: q1_p1,
+            second: q1_p2,
+            third: q1_p3,
+            goal: q2
         }
         // Back-end call
         fetch('http://localhost:8080/api/sms', {
@@ -203,6 +207,13 @@ const UserDetailsForm = () => {
                         <div className="relative flex justify-center">
                             <span className="bg-white px-2 text-sm text-gray-500">Understanding your interests</span>
                         </div>
+                    </div>
+                    <div className="mr-4 ml-4 mt-4 text-left"> 
+                        Thank you participating in this survey in
+                        collaboration with Naked Ice Cream! This survey
+                        is done by Justin Chan & Associates, an agency
+                        unit of Prudential Assurance Company Singapore
+                        (Pte) Ltd Reg. No. 199002477Z
                     </div>
                     <p className="mt-8 mb-4 font-semibold text-md text-left ml-6 mr-2">
                         Which among the following is your biggest concern at the moment? (1 - Highest Priority, 3 - Least Priority)

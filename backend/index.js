@@ -28,6 +28,8 @@ app.post('/api/sms', (req, res) => {
     res.header('Content-Type', 'application/json');
     const personInfo = new PersonInfo(req.body);
     console.log(personInfo);
+    // res.send(JSON.stringify({ isValid: false }));
+
     client.messages
         .create({
         from: process.env.TWILIO_PHONE_NUMBER,
@@ -39,10 +41,13 @@ app.post('/api/sms', (req, res) => {
             googleSheetsInstance.spreadsheets.values.append({
                 auth, 
                 spreadsheetId, 
-                range: "Sheet1!A:C", //sheet name and range of cells
+                range: "Sheet1!A:H", //sheet name and range of cells
                 valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
                 resource: {
-                    values: [[personInfo.name, personInfo.age, personInfo.phoneNum]],
+                    values: [[
+                        personInfo.name, personInfo.age, personInfo.phoneNum,
+                        personInfo.first, personInfo.second, personInfo.third, personInfo.goal
+                    ]],
                 },
             });
             res.send(JSON.stringify({ isValid: true }));
