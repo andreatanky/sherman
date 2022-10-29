@@ -2,7 +2,6 @@ import React, { useContext, useState, useCallback } from "react";
 import ErrorAlert from "../alerts/ErrorAlert";
 import SuccessModal from "../alerts/SuccessModal";
 import countries_code from "../../data/data";
-import axios from "axios";
 
 const UserDetailsForm = () => {
     const [firstName, setFirstName] = useState("");
@@ -35,10 +34,9 @@ const UserDetailsForm = () => {
 
     const handleVerification = async (event) => {
         event.preventDefault();
-        console.log(country);
         const personInfo = {
             name: firstName + " " + lastName,
-            phoneNum: country + phoneNumber,
+            phoneNum: "+" + country + phoneNumber,
             age: age
         }
         // Back-end call
@@ -50,14 +48,12 @@ const UserDetailsForm = () => {
             body: JSON.stringify(personInfo)
           }).then(res => res.json())
             .then(data => {
-                if (data.success) {
-                    console.log(":DATA.SUCESS");
+                console.log(data);
+                if (data.isValid) {
                     setOpen(true)
                     setIsError(false);
-                    axios.post(process.env.GOOGLE_SHEET_URL)
                 } else {
-                    console.log(":DATA.FAILURE");
-                    setOpen(false);
+                    setOpen(true);
                     setIsError(true);
                 }
         });
