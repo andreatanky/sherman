@@ -26,7 +26,7 @@ const SuccessModal = ({isError, setIsError, open, setOpen}) => {
                    <button onClick={() => {
                        setOpen(false);
                    }} className="bg-green-500 mt-16 ml-32 mr-32 py-2 px-3 rounded-md shadow-lg text-white font-medium m-7">
-                       Back to form
+                       Back To Form
                    </button>
                </div>
            </Popup>
