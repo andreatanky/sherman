@@ -1,10 +1,8 @@
 import React, { useContext, useState, useCallback } from "react";
 import ErrorAlert from "../alerts/ErrorAlert";
 import SuccessModal from "../alerts/SuccessModal";
-const countryCodes = require('country-codes-list')
-import PhoneInput from 'react-phone-number-input'
-import 'react-phone-number-input/style.css'
 import countries_code from "../../data/data";
+import axios from "axios";
 
 const UserDetailsForm = () => {
     const [firstName, setFirstName] = useState("");
@@ -37,18 +35,38 @@ const UserDetailsForm = () => {
 
     const handleVerification = async (event) => {
         event.preventDefault();
-
+        console.log(country);
+        const personInfo = {
+            name: firstName + " " + lastName,
+            phoneNum: country + phoneNumber,
+            age: age
+        }
         // Back-end call
+        fetch('http://localhost:8080/api/sms', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(personInfo)
+          }).then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(":DATA.SUCESS");
+                    setOpen(true)
+                    setIsError(false);
+                    axios.post(process.env.GOOGLE_SHEET_URL)
+                } else {
+                    console.log(":DATA.FAILURE");
+                    setOpen(false);
+                    setIsError(true);
+                }
+        });
         setFirstName("");
         setLastName("");
         setAge("");
         setPhoneNumber("");
-        setCountry("");
-        
-        setOpen(true)
-        setIsError(false)
+        setCountry("65");
     };
-
 
 
     return (
@@ -57,10 +75,9 @@ const UserDetailsForm = () => {
                 <div className="max-w-2xl justify-center sm:rounded-lg">
                     <div className="space-y-6 py-6 px-4 sm:p-6">
                         <div className="md:col-span-1 text-left p-3 block">
+                            <h2 className="font-bold text-xl text-gray-900">Welcome to Naked Ice Cream! </h2>
                             <h3 className="font-semibold text-xl text-gray-900">Complete this survey and get $2 off when you spend a min. $10 in store. </h3>
-                            <p className="mt-2 text-lg text-gray-500">Please key in a valid mobile number to receive your verification pin.</p>
-
-                            <p className="mt-2 text-lg text-gray-500">Please key in a valid mobile number to receive your verification pin.</p>
+                            <p className="mt-2 text-lg text-gray-500">Please key in your information below and you will a receive an SMS which you can use to redeem the discount.</p>
                         </div>
                         <div>
                             <div className=" block col-span-6 sm:col-span-3">
