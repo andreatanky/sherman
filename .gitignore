@@ -25,3 +25,4 @@ package.json
 package-lock.json
 backend/.env
 backend/node_modules/
+backend/keys.json
