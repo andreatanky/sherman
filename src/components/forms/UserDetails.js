@@ -12,6 +12,13 @@ const UserDetailsForm = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [isError, setIsError] = useState(false);
     const [open, setOpen] = useState(false);
+
+    const [q1_p1, setQ1_p1] = useState('');
+    const [q1_p2, setQ1_p2] = useState('');
+    const [q1_p3, setQ1_p3] = useState('');
+
+    const [q2, setQ2] = useState('');
+
     const q1_options = [
         { description: 'Rising cost of living', col: '2' },
         { description: 'Safety net for family', col: '3' },
@@ -22,6 +29,23 @@ const UserDetailsForm = () => {
         { description: 'Fast and furious' },
         { description: 'Consistency is key' },
     ]
+
+    const handlePriority1 = (event) => {
+        setQ1_p1(event.target.value);
+    }
+
+    const handlePriority2 = (event) => {
+        setQ1_p2(event.target.value);
+    }
+
+    const handlePriority3 = (event) => {
+        setQ1_p3(event.target.value);
+    }
+
+    const handleQ2 = (event) => {
+        setQ2(event.target.value);
+    }
+
     const handleFirstNameChange = (event) => {
         setFirstName(event.target.value);
     }
@@ -44,7 +68,7 @@ const UserDetailsForm = () => {
 
     const handleVerification = async (event) => {
         event.preventDefault();
-        console.log(country);
+
         const personInfo = {
             name: firstName + " " + lastName,
             phoneNum: country + phoneNumber,
@@ -70,11 +94,16 @@ const UserDetailsForm = () => {
                     setIsError(true);
                 }
         });
+
         setFirstName("");
         setLastName("");
         setAge("");
         setPhoneNumber("");
         setCountry("65");
+        setQ1_p1("");
+        setQ1_p2("");
+        setQ1_p3("");
+        setQ2("");
     };
 
 
@@ -191,10 +220,11 @@ const UserDetailsForm = () => {
                             </div>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
-                            <fieldset aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
+                            <fieldset onChange={handlePriority1} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
                                 <div className="col-start-1 text-sm text-left">1st Priority</div>
                                 {q1_options.map((option) => (
                                     <input
+                                        key={option.description}
                                         value={option.description}
                                         id="first-priority"
                                         name="first-priority"
@@ -206,10 +236,11 @@ const UserDetailsForm = () => {
                             </fieldset>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
-                            <fieldset aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
+                            <fieldset onChange={handlePriority2} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
                                 <div className="col-start-1 text-sm text-left">2nd Priority</div>
                                 {q1_options.map((option) => (
                                     <input
+                                        key={option.description}
                                         value={option.description}
                                         id="second-priority"
                                         name="second-priority"
@@ -221,10 +252,11 @@ const UserDetailsForm = () => {
                             </fieldset>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
-                            <fieldset aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center mb-10">
+                            <fieldset onChange={handlePriority3} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center mb-10">
                                 <div className="col-start-1 text-sm text-left">Last Priority</div>
                                 {q1_options.map((option) => (
                                     <input
+                                        key={option.description}
                                         value={option.description}
                                         id="last-priority"
                                         name="last-priority"
@@ -239,17 +271,19 @@ const UserDetailsForm = () => {
                     <p className="mt-8 font-semibold text-md text-left ml-6 mr-2">
                         Towards your goals, which describe you best?
                     </p>
-                    <fieldset aria-required={true} className="ml-6 mt-4 mb-10">
+                    <fieldset onChange={handleQ2} aria-required={true} className="ml-6 mt-4 mb-10">
                         <div className="space-y-5">
                             {q2_options.map((option) => (
                                 <div key={option.description} className="relative flex items-start">
                                     <div className="flex h-5 items-center">
                                         <input
+                                            key={option.description}
+                                            value={option.description}
                                             id={option.description}
                                             aria-describedby={`${option.description}-description`}
                                             name="plan"
                                             type="radio"
-                                            defaultChecked={option.description === 'Take it slow'}
+                                            defaultChecked={false}
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                         />
                                     </div>
@@ -269,15 +303,14 @@ const UserDetailsForm = () => {
                         I understand that I can refer to Prudential Data Privacy, which is available at https://www.prudential.com.sg/Privacy- Notice for more information.
                         I may contact Justin Chan, a representative of PACS at justinchankk@pruadviser.com.sg on how I may access and correct my personal data or withdraw consent to the collection, use or disclosure of my personal data.
                     </p>
-                    <fieldset className="ml-6 mt-4 mb-10">
+                    <fieldset aria-required={true} className="ml-6 mt-4 mb-10">
                         <div className="space-y-5">
-
                                 <div key="accept" className="relative flex items-start">
                                     <div className="flex h-5 items-center">
                                         <input
                                             id="accept"
                                             aria-describedby="accept"
-                                            name="plan"
+                                            name="accept"
                                             type="radio"
                                             required
                                             defaultChecked={false}
