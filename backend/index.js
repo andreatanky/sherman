@@ -20,7 +20,7 @@ const auth = new google.auth.GoogleAuth({
 const authClientObject = auth.getClient();
 const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
 const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-
+const contactIndex = "Sheet1!C:C";
 app.use(express.json());
 app.use(cors());
 
@@ -28,34 +28,42 @@ app.post('/api/sms', (req, res) => {
     res.header('Content-Type', 'application/json');
     const personInfo = new PersonInfo(req.body);
     console.log(personInfo);
-    // res.send(JSON.stringify({ isValid: false }));
-
-    client.messages
-        .create({
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: personInfo.phoneNum,
-        body: `\nWelcome to Naked Ice Cream, ${personInfo.name}! 
-           \nShow this message to our staff to get a $2 discount off when you spend min. $10 in store.`
-        })
-        .then(() => {
-            googleSheetsInstance.spreadsheets.values.append({
-                auth, 
-                spreadsheetId, 
-                range: "Sheet1!A:H", //sheet name and range of cells
-                valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
-                resource: {
-                    values: [[
-                        personInfo.name, personInfo.age, personInfo.phoneNum,
-                        personInfo.first, personInfo.second, personInfo.third, personInfo.goal
-                    ]],
-                },
-            });
-            res.send(JSON.stringify({ isValid: true }));
-        })
-        .catch(err => {
-            console.log(err);
+    googleSheetsInstance.spreadsheets.values.batchGet({
+        spreadsheetId, 
+        ranges: contactIndex,
+        auth
+    }).then(data => data.data.valueRanges[0].values).then(existingPhoneNum => {
+        if (existingPhoneNum.includes(personInfo.phoneNum.slice(1))) {
             res.send(JSON.stringify({ isValid: false }));
-        });
+        } else {
+            client.messages
+            .create({
+            from: process.env.TWILIO_PHONE_NUMBER,
+            to: personInfo.phoneNum,
+            body: `\nWelcome to Naked Ice Cream, ${personInfo.name}! 
+               \nShow this message to our staff to get a $2 discount off when you spend min. $10 in store.`
+            })
+            .then(() => {
+                googleSheetsInstance.spreadsheets.values.append({
+                    auth, 
+                    spreadsheetId, 
+                    range: "Sheet1!A:H", //sheet name and range of cells
+                    valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
+                    resource: {
+                        values: [[
+                            personInfo.name, personInfo.age, personInfo.phoneNum,
+                            personInfo.first, personInfo.second, personInfo.third, personInfo.goal
+                        ]],
+                    },
+                });
+                res.send(JSON.stringify({ isValid: true }));
+            })
+            .catch(err => {
+                console.log(err);
+                res.send(JSON.stringify({ isValid: false }));
+            });
+        } 
+    });    
 });
 
 app.listen(PORT, () =>

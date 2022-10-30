@@ -310,29 +310,6 @@ const UserDetailsForm = () => {
                         I understand that I can refer to Prudential Data Privacy, which is available at https://www.prudential.com.sg/Privacy- Notice for more information.
                         I may contact Justin Chan, a representative of PACS at justinchankk@pruadviser.com.sg on how I may access and correct my personal data or withdraw consent to the collection, use or disclosure of my personal data.
                     </p>
-                    <fieldset aria-required={true} className="ml-6 mt-4 mb-10">
-                        <div className="space-y-5">
-                                <div key="accept" className="relative flex items-start">
-                                    <div className="flex h-5 items-center">
-                                        <input
-                                            id="accept"
-                                            aria-describedby="accept"
-                                            name="accept"
-                                            type="radio"
-                                            required
-                                            defaultChecked={false}
-                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        />
-                                    </div>
-                                    <div className="ml-3 text-sm">
-                                        <label htmlFor="accept" className="font-medium text-gray-700">
-                                            I accept
-                                        </label>
-                                    </div>
-                                </div>
-
-                        </div>
-                    </fieldset>
                     <button type="submit" className="bg-indigo-500 py-2 px-3 rounded-md shadow-lg text-white font-medium shadow-indigo-500/50 m-7">
                         Submit
                     </button>
