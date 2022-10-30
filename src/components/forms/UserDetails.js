@@ -149,7 +149,7 @@ const UserDetailsForm = () => {
                                 <label htmlFor="first-name" className="block text-sm text-left font-medium text-gray-700">
                                     Age
                                 </label>
-                                <fieldset onChange={handleAgeChange} aria-required={true} className="mt-4 mb-10">
+                                <fieldset onChange={handleAgeChange} aria-required={true} className="mt-4 mb-6">
                                     <div className="space-y-5">
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
