@@ -289,16 +289,6 @@ const UserDetailsForm = () => {
                                         </div>
                                     </div>
                                 </fieldset>
-                                <input
-                                    onChange={handleAgeChange}
-                                    type="number"
-                                    name="age"
-                                    id="age"
-                                    value={age}
-                                    autoComplete="age"
-                                    required
-                                    className="mt-1 block w-full mb-3 bg-gray-200 rounded-md border border-gray-300 py-3 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                />
                             </div>
                             <div className="col-span-6 sm:col-span-3">
                                 <label htmlFor="phone-number" className="block text-sm text-left font-medium text-gray-700">
