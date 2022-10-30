@@ -1,9 +1,27 @@
 import React, { useContext, useState, useCallback } from "react";
 import ErrorAlert from "../alerts/ErrorAlert";
+import DuplicateAlert from "../alerts/DuplicateAlert";
 import SuccessModal from "../alerts/SuccessModal";
 import countries_code from "../../data/data";
+import ReadMoreReact from 'read-more-react';
 
 const UserDetailsForm = () => {
+
+    const [isReadMore, setIsReadMore] = useState(true);
+    const ReadMore = ({ children }) => {
+        const text = children;
+        const toggleReadMore = () => {
+            setIsReadMore(!isReadMore);
+        };
+        return (
+            <p className="mt-8 text-md text-left ml-6 mr-2">
+                {isReadMore ? text.slice(0, 498) : text}
+                <span onClick={toggleReadMore} className="read-or-hide">
+                    {isReadMore ? "...read more" : " show less"}
+                </span>
+            </p>
+        );
+    };
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [age, setAge] = useState("");
@@ -11,13 +29,14 @@ const UserDetailsForm = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [isError, setIsError] = useState(false);
     const [open, setOpen] = useState(false);
-
+    const [isDuplicate, setDuplicate] = useState(false);
     const [q1_p1, setQ1_p1] = useState("");
     const [q1_p2, setQ1_p2] = useState("");
     const [q1_p3, setQ1_p3] = useState("");
 
     const [q2, setQ2] = useState("");
     const [q3, setQ3] = useState("");
+
 
     const handlePriority1 = (event) => {
         setQ1_p1(event.target.value);
@@ -61,6 +80,7 @@ const UserDetailsForm = () => {
 
     const handleVerification = async (event) => {
         event.preventDefault();
+
         const personInfo = {
             name: firstName + " " + lastName,
             phoneNum: "+" + country + phoneNumber,
@@ -70,6 +90,7 @@ const UserDetailsForm = () => {
             third: q1_p3,
             goal: q2
         }
+
         // Back-end call
         fetch('http://localhost:8080/api/sms', {
             method: 'POST',
@@ -80,7 +101,6 @@ const UserDetailsForm = () => {
           }).then(res => res.json())
             .then(data => {
                 console.log(data);
-
                 setFirstName("");
                 setLastName("");
                 setAge("");
@@ -91,14 +111,21 @@ const UserDetailsForm = () => {
                 setQ1_p3("");
                 setQ2("");
                 setQ3("");
-
-                if (data.isValid) {
-                    setOpen(true)
-                    setIsError(false);
-
-                } else {
-                    setOpen(true);
-                    setIsError(true);
+                setIsReadMore(false);
+                switch (data.response) {
+                    case "valid":
+                        setOpen(true);
+                        setIsError(false);
+                        break;
+                    case "duplicate":
+                        setOpen(true);
+                        setIsError(true);
+                        setDuplicate(true);
+                        break;
+                    default:
+                        // Error Default
+                        setOpen(true);
+                        setIsError(true);
                 }
         });
     };
@@ -511,45 +538,37 @@ const UserDetailsForm = () => {
                             </div>
                         </div>
                     </fieldset>
-                    <p className="mt-8 text-md text-left ml-6 mr-2">
-                        By clicking the <span className="font-bold">Submit</span> button below, I confirm that I have read, understood and given my consent for Prudential Assurance Company Singapore and its related corporations, respective representatives, agents, third party service providers, contractors and/or appointed distribution/business partners (collectively referred to as “Prudential and its authorised representatives”) to collect, use, disclose and/or process my/our personal data for the purpose of contacting me about products
-                        and services distributed, marketed and/or introduced by Prudential through marketing activities via all channels including but not limited to SMS, Social Media, In-app Push Notification, Phone Call etc and perusing my contact details which Prudential and its authorised representatives has in its records from time to time and in accordance to the Prudential Data Privacy Notice, which is available at http://www.prudential.com.sg/Privacy- Notice.
-                        I hereby expressly understand and agree that my given consent(s) herein do not supersede or replace any other consents and/or previous consents which I may have previously given to Prudential in respect of my personal data and is without prejudice to any legal rights available to Prudential to collect, use or disclose my personal data.
-                        I understand that I can refer to Prudential Data Privacy, which is available at https://www.prudential.com.sg/Privacy- Notice for more information.
-                        I may contact Justin Chan, a representative of PACS at justinchankk@pruadviser.com.sg on how I may access and correct my personal data or withdraw consent to the collection, use or disclosure of my personal data.
-                    </p>
-                    <fieldset aria-required={true} className="ml-6 mt-4 mb-10">
-                        <div className="space-y-5">
-                                <div key="accept" className="relative flex items-start">
-                                    <div className="flex h-5 items-center">
-                                        <input
-                                            onChange={handleQ3}
-                                            checked={q3 !== ""}
-                                            id="accept"
-                                            value="I accept"
-                                            aria-describedby="accept"
-                                            name="accept"
-                                            type="radio"
-                                            required
-                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        />
-                                    </div>
-                                    <div className="ml-3 text-sm">
-                                        <label htmlFor="accept" className="font-medium text-gray-700">
-                                            I accept
-                                        </label>
-                                    </div>
-                                </div>
-
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                            <div className="w-full border-t border-gray-300" />
                         </div>
-                    </fieldset>
+                        <div className="relative flex justify-center">
+                            <span className="bg-white px-2 text-sm text-gray-500">Privacy Agreement</span>
+                        </div>
+                    </div>
+                    <div>
+                        <ReadMore>
+                            By clicking the Submit button below, I confirm that I have read, understood and given my consent for Prudential Assurance Company Singapore and its related corporations, respective representatives, agents, third party service providers, contractors and/or appointed distribution/business partners (collectively referred to as “Prudential and its authorised representatives”) to collect, use, disclose and/or process my/our personal data for the purpose of contacting me about products
+                            and services distributed, marketed and/or introduced by Prudential through marketing activities via all channels including but not limited to SMS, Social Media, In-app Push Notification, Phone Call etc and perusing my contact details which Prudential and its authorised representatives has in its records from time to time and in accordance to the Prudential Data Privacy Notice, which is available at https://www.prudential.com.sg/Privacy-Notice.
+                            I hereby expressly understand and agree that my given consent(s) herein do not supersede or replace any other consents and/or previous consents which I may have previously given to Prudential in respect of my personal data and is without prejudice to any legal rights available to Prudential to collect, use or disclose my personal data.
+                            I understand that I can refer to Prudential Data Privacy, which is available at https://www.prudential.com.sg/Privacy-Notice for more information.
+                            I may contact Justin Chan, a representative of PACS at justinchankk@pruadviser.com.sg on how I may access and correct my personal data or withdraw consent to the collection, use or disclosure of my personal data.
+                        </ReadMore>
+                    </div>
                     <button type="submit" className="bg-indigo-500 py-2 px-3 rounded-md shadow-lg text-white font-medium shadow-indigo-500/50 m-7">
                         Submit
                     </button>
                 </div>
             </form>
-            {open ? (isError ? <ErrorAlert open={open} setOpen={setOpen}/> :
-                <SuccessModal open={open} setOpen={setOpen}/> ): undefined}
+            {
+                open 
+                ? (isError 
+                    ? (isDuplicate 
+                        ? <DuplicateAlert open={open} setOpen={setOpen}/>
+                        : <ErrorAlert open={open} setOpen={setOpen}/>)
+                    : <SuccessModal open={open} setOpen={setOpen}/>)
+                : undefined
+            }
         </div>
     )
 };

@@ -32,9 +32,12 @@ app.post('/api/sms', (req, res) => {
         spreadsheetId, 
         ranges: contactIndex,
         auth
-    }).then(data => data.data.valueRanges[0].values).then(existingPhoneNum => {
+    }).then(data => data.data.valueRanges[0].values)
+    .then(data => data.flat())
+    .then(existingPhoneNum => {
         if (existingPhoneNum.includes(personInfo.phoneNum.slice(1))) {
-            res.send(JSON.stringify({ isValid: false }));
+            console.log("Duplicate Number Detected.");
+            res.send(JSON.stringify({ response: "duplicate" }));
         } else {
             client.messages
             .create({
@@ -56,11 +59,11 @@ app.post('/api/sms', (req, res) => {
                         ]],
                     },
                 });
-                res.send(JSON.stringify({ isValid: true }));
+                res.send(JSON.stringify({ response: "valid" }));
             })
             .catch(err => {
                 console.log(err);
-                res.send(JSON.stringify({ isValid: false }));
+                res.send(JSON.stringify({ response: "error" }));
             });
         } 
     });    

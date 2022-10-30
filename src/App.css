@@ -2,6 +2,8 @@ body {
   overflow: auto !important;
 }
 
+#more {display: none;}
+
 .App {
   text-align: center;
 }
