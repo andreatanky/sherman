@@ -19,19 +19,6 @@ const UserDetailsForm = () => {
     const [q2, setQ2] = useState("");
     const [q3, setQ3] = useState("");
 
-    const [checked, setChecked] = useState(false);
-
-    const q1_options = [
-        { description: 'Rising cost of living', col: '2', id: '1' },
-        { description: 'Safety net for family', col: '3' , id: '2'},
-        { description: 'Achieve financial freedom', col: '4' , id: '3'},
-    ]
-    const q2_options = [
-        { description: 'Take it slow' , checked: false},
-        { description: 'Fast and furious' , checked: false},
-        { description: 'Consistency is key' , checked: false},
-    ]
-
     const handlePriority1 = (event) => {
         setQ1_p1(event.target.value);
     }
@@ -162,6 +149,146 @@ const UserDetailsForm = () => {
                                 <label htmlFor="first-name" className="block text-sm text-left font-medium text-gray-700">
                                     Age
                                 </label>
+                                <fieldset onChange={handleAgeChange} aria-required={true} className="mt-4 mb-10">
+                                    <div className="space-y-5">
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "1 - 18"}
+                                                    value="1 - 18"
+                                                    id="20"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="Take it slow" className="font-medium text-gray-700">
+                                                    1 - 18
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "19 - 24"}
+                                                    value="19 - 24"
+                                                    id="21"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="Take it slow" className="font-medium text-gray-700">
+                                                    19 - 24
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "25 - 30"}
+                                                    value="25 - 30"
+                                                    id="22"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="25 - 30" className="font-medium text-gray-700">
+                                                    25 - 30
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "31 - 40"}
+                                                    value="31 - 40"
+                                                    id="24"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="31 - 40" className="font-medium text-gray-700">
+                                                    31 - 40
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "41 - 50"}
+                                                    value="41 - 50"
+                                                    id="25"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="41 - 50" className="font-medium text-gray-700">
+                                                    41 - 50
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "51 - 54"}
+                                                    value="51 - 54"
+                                                    id="26"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="51 - 54" className="font-medium text-gray-700">
+                                                    51 - 54
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "55 - 64"}
+                                                    value="55 - 64"
+                                                    id="27"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="55 - 64" className="font-medium text-gray-700">
+                                                    55 - 64
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="relative flex items-start">
+                                            <div className="flex h-5 items-center">
+                                                <input
+                                                    checked={age === "65 and above"}
+                                                    value="65 and above"
+                                                    id="28"
+                                                    name="plan"
+                                                    type="radio"
+                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="65 and above" className="font-medium text-gray-700">
+                                                    65 and above
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
                                 <input
                                     onChange={handleAgeChange}
                                     type="number"
@@ -266,18 +393,6 @@ const UserDetailsForm = () => {
                                     type="radio"
                                     className={`h-4 col-start-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
-                                {/*{q1_options.map((option) => (*/}
-                                {/*    <input*/}
-                                {/*        onChange={handlePriority1}*/}
-                                {/*        checked={q1_p1 !== ""}*/}
-                                {/*        key={option.description}*/}
-                                {/*        value={option.description}*/}
-                                {/*        id="first-priority"*/}
-                                {/*        name="first-priority"*/}
-                                {/*        type="radio"*/}
-                                {/*        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}*/}
-                                {/*    />*/}
-                                {/*))}*/}
                             </fieldset>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
@@ -310,18 +425,6 @@ const UserDetailsForm = () => {
                                     type="radio"
                                     className={`h-4 col-start-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
-                                {/*{q1_options.map((option) => (*/}
-                                {/*    <input*/}
-                                {/*        onChange={handlePriority2}*/}
-                                {/*        checked={q1_p2 !== ""}*/}
-                                {/*        key={option.description}*/}
-                                {/*        value={option.description}*/}
-                                {/*        id="second-priority"*/}
-                                {/*        name="second-priority"*/}
-                                {/*        type="radio"*/}
-                                {/*        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}*/}
-                                {/*    />*/}
-                                {/*))}*/}
                             </fieldset>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
@@ -354,18 +457,6 @@ const UserDetailsForm = () => {
                                     type="radio"
                                     className={`h-4 col-start-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
-                                {/*{q1_options.map((option) => (*/}
-                                {/*    <input*/}
-                                {/*        onChange={handlePriority3}*/}
-                                {/*        checked={q1_p3 !== ""}*/}
-                                {/*        key={option.description}*/}
-                                {/*        value={option.description}*/}
-                                {/*        id="last-priority"*/}
-                                {/*        name="last-priority"*/}
-                                {/*        type="radio"*/}
-                                {/*        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}*/}
-                                {/*    />*/}
-                                {/*))}*/}
                             </fieldset>
                         </div>
                     </div>
@@ -428,28 +519,6 @@ const UserDetailsForm = () => {
                                     </label>
                                 </div>
                             </div>
-                            {/*{q2_options.map((option) => (*/}
-                            {/*    <div key={option.description} className="relative flex items-start">*/}
-                            {/*        <div className="flex h-5 items-center">*/}
-                            {/*            <input*/}
-                            {/*                onChange={handleQ2}*/}
-                            {/*                checked={q2 !== ""}*/}
-                            {/*                key={option.description}*/}
-                            {/*                value={option.description}*/}
-                            {/*                id={option.description}*/}
-                            {/*                aria-describedby={`${option.description}-description`}*/}
-                            {/*                name="plan"*/}
-                            {/*                type="radio"*/}
-                            {/*                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"*/}
-                            {/*            />*/}
-                            {/*        </div>*/}
-                            {/*        <div className="ml-3 text-sm">*/}
-                            {/*            <label htmlFor={option.description} className="font-medium text-gray-700">*/}
-                            {/*                {option.description}*/}
-                            {/*            </label>*/}
-                            {/*        </div>*/}
-                            {/*    </div>*/}
-                            {/*))}*/}
                         </div>
                     </fieldset>
                     <p className="mt-8 text-md text-left ml-6 mr-2">
