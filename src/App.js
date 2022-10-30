@@ -7,7 +7,7 @@ import React from "react";
 
 function App() {
   return (
-    <div className="App h-full bg-ice-cream-bg lg:bg-contain bg-center min-h-full w-screen bg-cover">
+    <div className="App flex grow h-full bg-ice-cream-bg lg:bg-contain bg-center min-h-full w-screen bg-cover">
       <VerificationPage/>
     </div>
   );
