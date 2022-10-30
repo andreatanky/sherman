@@ -12,21 +12,24 @@ const UserDetailsForm = () => {
     const [isError, setIsError] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const [q1_p1, setQ1_p1] = useState('');
-    const [q1_p2, setQ1_p2] = useState('');
-    const [q1_p3, setQ1_p3] = useState('');
+    const [q1_p1, setQ1_p1] = useState("");
+    const [q1_p2, setQ1_p2] = useState("");
+    const [q1_p3, setQ1_p3] = useState("");
 
-    const [q2, setQ2] = useState('');
+    const [q2, setQ2] = useState("");
+    const [q3, setQ3] = useState("");
+
+    const [checked, setChecked] = useState(false);
 
     const q1_options = [
-        { description: 'Rising cost of living', col: '2' },
-        { description: 'Safety net for family', col: '3' },
-        { description: 'Achieve financial freedom', col: '4' },
+        { description: 'Rising cost of living', col: '2', id: '1' },
+        { description: 'Safety net for family', col: '3' , id: '2'},
+        { description: 'Achieve financial freedom', col: '4' , id: '3'},
     ]
     const q2_options = [
-        { description: 'Take it slow' },
-        { description: 'Fast and furious' },
-        { description: 'Consistency is key' },
+        { description: 'Take it slow' , checked: false},
+        { description: 'Fast and furious' , checked: false},
+        { description: 'Consistency is key' , checked: false},
     ]
 
     const handlePriority1 = (event) => {
@@ -43,6 +46,10 @@ const UserDetailsForm = () => {
 
     const handleQ2 = (event) => {
         setQ2(event.target.value);
+    }
+
+    const handleQ3 = (event) => {
+        setQ3(event.target.value);
     }
 
     const handleFirstNameChange = (event) => {
@@ -86,24 +93,27 @@ const UserDetailsForm = () => {
           }).then(res => res.json())
             .then(data => {
                 console.log(data);
+
+                setFirstName("");
+                setLastName("");
+                setAge("");
+                setPhoneNumber("");
+                setCountry("65");
+                setQ1_p1("");
+                setQ1_p2("");
+                setQ1_p3("");
+                setQ2("");
+                setQ3("");
+
                 if (data.isValid) {
                     setOpen(true)
                     setIsError(false);
+
                 } else {
                     setOpen(true);
                     setIsError(true);
                 }
         });
-
-        setFirstName("");
-        setLastName("");
-        setAge("");
-        setPhoneNumber("");
-        setCountry("65");
-        setQ1_p1("");
-        setQ1_p2("");
-        setQ1_p3("");
-        setQ2("");
     };
 
 
@@ -229,78 +239,217 @@ const UserDetailsForm = () => {
                         <div className="row-span-1 h-10 bg-gray-100">
                             <fieldset onChange={handlePriority1} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
                                 <div className="col-start-1 text-sm text-left">1st Priority</div>
-                                {q1_options.map((option) => (
-                                    <input
-                                        key={option.description}
-                                        value={option.description}
-                                        id="first-priority"
-                                        name="first-priority"
-                                        type="radio"
-                                        defaultChecked={false}
-                                        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
-                                    />
-                                ))}
+                                <input
+                                    checked={q1_p1 === "Rising cost of living"}
+                                    key="Rising cost of living"
+                                    value="Rising cost of living"
+                                    id="1"
+                                    name="second-priority"
+                                    type="radio"
+                                    className={`h-4 col-start-2 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                <input
+                                    checked={q1_p1 === "Safety net for family"}
+                                    key="Safety net for family"
+                                    value="Safety net for family"
+                                    id="2"
+                                    name="second-priority"
+                                    type="radio"
+                                    className={`h-4 col-start-3 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                <input
+                                    checked={q1_p1 === "Achieve financial freedom"}
+                                    key="Achieve financial freedom"
+                                    value="Achieve financial freedom"
+                                    id="3"
+                                    name="second-priority"
+                                    type="radio"
+                                    className={`h-4 col-start-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                {/*{q1_options.map((option) => (*/}
+                                {/*    <input*/}
+                                {/*        onChange={handlePriority1}*/}
+                                {/*        checked={q1_p1 !== ""}*/}
+                                {/*        key={option.description}*/}
+                                {/*        value={option.description}*/}
+                                {/*        id="first-priority"*/}
+                                {/*        name="first-priority"*/}
+                                {/*        type="radio"*/}
+                                {/*        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}*/}
+                                {/*    />*/}
+                                {/*))}*/}
                             </fieldset>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
                             <fieldset onChange={handlePriority2} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
                                 <div className="col-start-1 text-sm text-left">2nd Priority</div>
-                                {q1_options.map((option) => (
-                                    <input
-                                        key={option.description}
-                                        value={option.description}
-                                        id="second-priority"
-                                        name="second-priority"
-                                        type="radio"
-                                        defaultChecked={false}
-                                        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
-                                    />
-                                ))}
+                                <input
+                                    checked={q1_p2 === "Rising cost of living"}
+                                    key="Rising cost of living"
+                                    value="Rising cost of living"
+                                    id="4"
+                                    name="1-2"
+                                    type="radio"
+                                    className={`h-4 col-start-2 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                <input
+                                    checked={q1_p2 === "Safety net for family"}
+                                    key="Safety net for family"
+                                    value="Safety net for family"
+                                    id="5"
+                                    name="2-2"
+                                    type="radio"
+                                    className={`h-4 col-start-3 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                <input
+                                    checked={q1_p2 === "Achieve financial freedom"}
+                                    key="Achieve financial freedom"
+                                    value="Achieve financial freedom"
+                                    id="6"
+                                    name="2-3"
+                                    type="radio"
+                                    className={`h-4 col-start-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                {/*{q1_options.map((option) => (*/}
+                                {/*    <input*/}
+                                {/*        onChange={handlePriority2}*/}
+                                {/*        checked={q1_p2 !== ""}*/}
+                                {/*        key={option.description}*/}
+                                {/*        value={option.description}*/}
+                                {/*        id="second-priority"*/}
+                                {/*        name="second-priority"*/}
+                                {/*        type="radio"*/}
+                                {/*        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}*/}
+                                {/*    />*/}
+                                {/*))}*/}
                             </fieldset>
                         </div>
                         <div className="row-span-1 h-10 bg-gray-100">
                             <fieldset onChange={handlePriority3} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center mb-10">
                                 <div className="col-start-1 text-sm text-left">Last Priority</div>
-                                {q1_options.map((option) => (
-                                    <input
-                                        key={option.description}
-                                        value={option.description}
-                                        id="last-priority"
-                                        name="last-priority"
-                                        type="radio"
-                                        defaultChecked={false}
-                                        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
-                                    />
-                                ))}
+                                <input
+                                    checked={q1_p3 === "Rising cost of living"}
+                                    key="Rising cost of living"
+                                    value="Rising cost of living"
+                                    id="7"
+                                    name="1-3"
+                                    type="radio"
+                                    className={`h-4 col-start-2 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                <input
+                                    checked={q1_p3 === "Safety net for family"}
+                                    key="Safety net for family"
+                                    value="Safety net for family"
+                                    id="8"
+                                    name="2-3"
+                                    type="radio"
+                                    className={`h-4 col-start-3 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                <input
+                                    checked={q1_p3 === "Achieve financial freedom"}
+                                    key="Achieve financial freedom"
+                                    value="Achieve financial freedom"
+                                    id="9"
+                                    name="3-3"
+                                    type="radio"
+                                    className={`h-4 col-start-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                                />
+                                {/*{q1_options.map((option) => (*/}
+                                {/*    <input*/}
+                                {/*        onChange={handlePriority3}*/}
+                                {/*        checked={q1_p3 !== ""}*/}
+                                {/*        key={option.description}*/}
+                                {/*        value={option.description}*/}
+                                {/*        id="last-priority"*/}
+                                {/*        name="last-priority"*/}
+                                {/*        type="radio"*/}
+                                {/*        className={`h-4 col-start-${option.col} w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}*/}
+                                {/*    />*/}
+                                {/*))}*/}
                             </fieldset>
                         </div>
                     </div>
                     <p className="mt-8 font-semibold text-md text-left ml-6 mr-2">
                         Towards your goals, which describe you best?
                     </p>
-                    <fieldset onChange={handleQ2} aria-required={true} className="ml-6 mt-4 mb-10">
+                    <fieldset aria-required={true} className="ml-6 mt-4 mb-10">
                         <div className="space-y-5">
-                            {q2_options.map((option) => (
-                                <div key={option.description} className="relative flex items-start">
-                                    <div className="flex h-5 items-center">
-                                        <input
-                                            key={option.description}
-                                            value={option.description}
-                                            id={option.description}
-                                            aria-describedby={`${option.description}-description`}
-                                            name="plan"
-                                            type="radio"
-                                            defaultChecked={false}
-                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        />
-                                    </div>
-                                    <div className="ml-3 text-sm">
-                                        <label htmlFor={option.description} className="font-medium text-gray-700">
-                                            {option.description}
-                                        </label>
-                                    </div>
+                            <div className="relative flex items-start">
+                                <div className="flex h-5 items-center">
+                                    <input
+                                        onChange={handleQ2}
+                                        checked={q2 === "Take it slow"}
+                                        value="Take it slow"
+                                        id="10"
+                                        name="plan"
+                                        type="radio"
+                                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    />
                                 </div>
-                            ))}
+                                <div className="ml-3 text-sm">
+                                    <label htmlFor="Take it slow" className="font-medium text-gray-700">
+                                        Take it slow
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="relative flex items-start">
+                                <div className="flex h-5 items-center">
+                                    <input
+                                        onChange={handleQ2}
+                                        checked={q2 === "Fast and furious"}
+                                        value="Fast and furious"
+                                        id="11"
+                                        name="plan"
+                                        type="radio"
+                                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                </div>
+                                <div className="ml-3 text-sm">
+                                    <label htmlFor="Take it slow" className="font-medium text-gray-700">
+                                        Fast and furious
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="relative flex items-start">
+                                <div className="flex h-5 items-center">
+                                    <input
+                                        onChange={handleQ2}
+                                        checked={q2 === "Consistency is key"}
+                                        value="Consistency is key"
+                                        id="12"
+                                        name="plan"
+                                        type="radio"
+                                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                </div>
+                                <div className="ml-3 text-sm">
+                                    <label htmlFor="Take it slow" className="font-medium text-gray-700">
+                                        Consistency is key
+                                    </label>
+                                </div>
+                            </div>
+                            {/*{q2_options.map((option) => (*/}
+                            {/*    <div key={option.description} className="relative flex items-start">*/}
+                            {/*        <div className="flex h-5 items-center">*/}
+                            {/*            <input*/}
+                            {/*                onChange={handleQ2}*/}
+                            {/*                checked={q2 !== ""}*/}
+                            {/*                key={option.description}*/}
+                            {/*                value={option.description}*/}
+                            {/*                id={option.description}*/}
+                            {/*                aria-describedby={`${option.description}-description`}*/}
+                            {/*                name="plan"*/}
+                            {/*                type="radio"*/}
+                            {/*                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"*/}
+                            {/*            />*/}
+                            {/*        </div>*/}
+                            {/*        <div className="ml-3 text-sm">*/}
+                            {/*            <label htmlFor={option.description} className="font-medium text-gray-700">*/}
+                            {/*                {option.description}*/}
+                            {/*            </label>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*))}*/}
                         </div>
                     </fieldset>
                     <p className="mt-8 text-md text-left ml-6 mr-2">
@@ -315,12 +464,14 @@ const UserDetailsForm = () => {
                                 <div key="accept" className="relative flex items-start">
                                     <div className="flex h-5 items-center">
                                         <input
+                                            onChange={handleQ3}
+                                            checked={q3 !== ""}
                                             id="accept"
+                                            value="I accept"
                                             aria-describedby="accept"
                                             name="accept"
                                             type="radio"
                                             required
-                                            defaultChecked={false}
                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                         />
                                     </div>
