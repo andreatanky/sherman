@@ -40,14 +40,35 @@ const UserDetailsForm = () => {
 
     const handlePriority1 = (event) => {
         setQ1_p1(event.target.value);
+        if (q1_p2 === event.target.value) {
+            setQ1_p2("");
+        }
+
+        if (q1_p3 === event.target.value) {
+            setQ1_p3("");
+        }
     }
 
     const handlePriority2 = (event) => {
         setQ1_p2(event.target.value);
+        if (q1_p1 === event.target.value) {
+            setQ1_p1("");
+        }
+
+        if (q1_p3 === event.target.value) {
+            setQ1_p3("");
+        }
     }
 
     const handlePriority3 = (event) => {
         setQ1_p3(event.target.value);
+        if (q1_p2 === event.target.value) {
+            setQ1_p2("");
+        }
+
+        if (q1_p1 === event.target.value) {
+            setQ1_p1("");
+        }
     }
 
     const handleQ2 = (event) => {
