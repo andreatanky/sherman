@@ -8,11 +8,11 @@ import ReadMoreReact from 'read-more-react';
 const UserDetailsForm = () => {
 
     const [isReadMore, setIsReadMore] = useState(true);
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore);
+    };
     const ReadMore = ({ children }) => {
         const text = children;
-        const toggleReadMore = () => {
-            setIsReadMore(!isReadMore);
-        };
         return (
             <p className="mt-8 text-md text-left ml-6 mr-2">
                 {isReadMore ? text.slice(0, 498) : text}
