@@ -179,7 +179,7 @@ const UserDetailsForm = () => {
                                 />
                             </div>
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="first-name" className="block text-sm text-left font-medium text-gray-700">
+                                <label htmlFor="last-name" className="block text-sm text-left font-medium text-gray-700">
                                     Last name
                                 </label>
                                 <input
@@ -194,7 +194,7 @@ const UserDetailsForm = () => {
                                 />
                             </div>
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="first-name" className="block text-sm text-left font-medium text-gray-700">
+                                <label htmlFor="age-range" className="block text-sm text-left font-medium text-gray-700">
                                     Age
                                 </label>
                                 <fieldset onChange={handleAgeChange} aria-required={true} className="mt-4 mb-6">
@@ -205,7 +205,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "1 - 18"}
                                                     value="1 - 18"
                                                     id="20"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -222,7 +222,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "19 - 24"}
                                                     value="19 - 24"
                                                     id="21"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -239,7 +239,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "25 - 30"}
                                                     value="25 - 30"
                                                     id="22"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -256,7 +256,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "31 - 40"}
                                                     value="31 - 40"
                                                     id="24"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -273,7 +273,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "41 - 50"}
                                                     value="41 - 50"
                                                     id="25"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -290,7 +290,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "51 - 54"}
                                                     value="51 - 54"
                                                     id="26"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -307,7 +307,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "55 - 64"}
                                                     value="55 - 64"
                                                     id="27"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
@@ -324,7 +324,7 @@ const UserDetailsForm = () => {
                                                     checked={age === "65 and above"}
                                                     value="65 and above"
                                                     id="28"
-                                                    name="plan"
+                                                    name="age"
                                                     type="radio"
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                 />

@@ -41,8 +41,9 @@ app.post('/api/sms', (req, res) => {
         } else {
             client.messages
             .create({
-            from: process.env.TWILIO_PHONE_NUMBER,
+            from: process.env.TWILIO_ALPHANUM,
             to: personInfo.phoneNum,
+            messagingServiceSid: process.env.TWILIO_MESSAGE_SID,
             body: `\nWelcome to Naked Ice Cream, ${personInfo.name}! 
                \nShow this message to our staff to get a $2 discount off when you spend min. $10 in store.`
             })
