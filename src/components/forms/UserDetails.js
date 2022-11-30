@@ -5,6 +5,7 @@ import Spinner from "../alerts/Spinner";
 import countries_code from "../../data/data";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState, CSSProperties } from "react";
+// import Spinner from 'react-bootstrap/Spinner';
 
 const UserDetailsForm = () => {
 
@@ -167,13 +168,13 @@ const UserDetailsForm = () => {
 
     if (loading) {
       return (
-        <Spinner/>
+          <Spinner/>
       )
     }
 
     return (
         <div>
-            <form onSubmit={handleVerification} className="relative max-w-2xl h-fit m-20 scroll-smooth shadow-xl rounded-lg bg-white" action="#" method="POST">
+            <form onSubmit={handleVerification} className="max-w-2xl h-fit m-20 scroll-smooth shadow-xl rounded-lg bg-white" action="#" method="POST">
                 <div className="max-w-2xl justify-center sm:rounded-lg">
                     <div className="space-y-6 py-6 px-4 sm:p-6">
                         <div className="md:col-span-1 text-left p-2 block">
