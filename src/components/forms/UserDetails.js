@@ -1,9 +1,12 @@
-import React, { useContext, useState, useCallback } from "react";
 import ErrorAlert from "../alerts/ErrorAlert";
 import DuplicateAlert from "../alerts/DuplicateAlert";
 import SuccessModal from "../alerts/SuccessModal";
+import Spinner from "../alerts/Spinner";
 import countries_code from "../../data/data";
 import ReadMoreReact from 'read-more-react';
+import ClipLoader from "react-spinners/ClipLoader";
+import { useState, CSSProperties } from "react";
+
 
 const UserDetailsForm = () => {
 
@@ -36,6 +39,9 @@ const UserDetailsForm = () => {
 
     const [q2, setQ2] = useState("");
     const [q3, setQ3] = useState("");
+
+    const [loading, setLoading] = useState(false);
+    let [color, setColor] = useState("#ffffff");
 
 
     const handlePriority1 = (event) => {
@@ -102,59 +108,70 @@ const UserDetailsForm = () => {
     const handleVerification = async (event) => {
         event.preventDefault();
 
-        const personInfo = {
-            name: firstName + " " + lastName,
-            phoneNum: "+" + country + phoneNumber,
-            age: age,
-            first: q1_p1,
-            second: q1_p2,
-            third: q1_p3,
-            goal: q2
-        }
+        if (firstName === "" || lastName === "" || country === "" || phoneNumber === "" || age === "" || q1_p1 === "" || q1_p2 === "" || q1_p3 === "" || q2 === "") {
+            // Error Default
+            setOpen(true);
+            setIsError(true);
+        } else {
+            const personInfo = {
+                name: firstName + " " + lastName,
+                phoneNum: "+" + country + phoneNumber,
+                age: age,
+                first: q1_p1,
+                second: q1_p2,
+                third: q1_p3,
+                goal: q2
+            }
 
-        // Back-end call
-        fetch('http://localhost:8080/api/sms', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(personInfo)
-          }).then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setFirstName("");
-                setLastName("");
-                setAge("");
-                setPhoneNumber("");
-                setCountry("65");
-                setQ1_p1("");
-                setQ1_p2("");
-                setQ1_p3("");
-                setQ2("");
-                setQ3("");
-                setIsReadMore(false);
-                switch (data.response) {
-                    case "valid":
-                        setOpen(true);
-                        setIsError(false);
-                        break;
-                    case "duplicate":
-                        setOpen(true);
-                        setIsError(true);
-                        setDuplicate(true);
-                        break;
-                    default:
-                        // Error Default
-                        setOpen(true);
-                        setIsError(true);
-                }
-        });
+            // Back-end call
+            fetch('http://localhost:8080/api/sms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(personInfo)
+            }).then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    setFirstName("");
+                    setLastName("");
+                    setAge("");
+                    setPhoneNumber("");
+                    setCountry("65");
+                    setQ1_p1("");
+                    setQ1_p2("");
+                    setQ1_p3("");
+                    setQ2("");
+                    setQ3("");
+                    setIsReadMore(false);
+                    switch (data.response) {
+                        case "valid":
+                            setOpen(true);
+                            setIsError(false);
+                            break;
+                        case "duplicate":
+                            setOpen(true);
+                            setIsError(true);
+                            setDuplicate(true);
+                            break;
+                        default:
+                            // Error Default
+                            setOpen(true);
+                            setIsError(true);
+                    }
+                });
+        }
     };
 
+    if (loading) {
+      return (
+        <Spinner/>
+      )
+    }
 
     return (
         <div>
-            <form onSubmit={handleVerification} className="max-w-2xl h-fit m-20 scroll-smooth shadow-xl rounded-lg bg-white" action="#" method="POST">
+            <form onSubmit={handleVerification} className="relative max-w-2xl h-fit m-20 scroll-smooth shadow-xl rounded-lg bg-white" action="#" method="POST">
                 <div className="max-w-2xl justify-center sm:rounded-lg">
                     <div className="space-y-6 py-6 px-4 sm:p-6">
                         <div className="md:col-span-1 text-left p-2 block">
@@ -202,6 +219,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "1 - 18"}
                                                     value="1 - 18"
                                                     id="20"
@@ -219,6 +237,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "19 - 24"}
                                                     value="19 - 24"
                                                     id="21"
@@ -236,6 +255,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "25 - 30"}
                                                     value="25 - 30"
                                                     id="22"
@@ -253,6 +273,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "31 - 40"}
                                                     value="31 - 40"
                                                     id="24"
@@ -270,6 +291,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "41 - 50"}
                                                     value="41 - 50"
                                                     id="25"
@@ -287,6 +309,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "51 - 54"}
                                                     value="51 - 54"
                                                     id="26"
@@ -304,6 +327,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "55 - 64"}
                                                     value="55 - 64"
                                                     id="27"
@@ -321,6 +345,7 @@ const UserDetailsForm = () => {
                                         <div className="relative flex items-start">
                                             <div className="flex h-5 items-center">
                                                 <input
+                                                    aria-required={true}
                                                     checked={age === "65 and above"}
                                                     value="65 and above"
                                                     id="28"
@@ -405,6 +430,7 @@ const UserDetailsForm = () => {
                             <fieldset onChange={handlePriority1} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
                                 <div className="col-start-1 text-sm text-left">1st Priority</div>
                                 <input
+                                    aria-required={true}
                                     checked={q1_p1 === "Rising cost of living"}
                                     key="Rising cost of living"
                                     value="Rising cost of living"
@@ -414,6 +440,7 @@ const UserDetailsForm = () => {
                                     className={`h-4 col-start-2 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
                                 <input
+                                    aria-required={true}
                                     checked={q1_p1 === "Safety net for family"}
                                     key="Safety net for family"
                                     value="Safety net for family"
@@ -423,6 +450,7 @@ const UserDetailsForm = () => {
                                     className={`h-4 col-start-3 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
                                 <input
+                                    aria-required={true}
                                     checked={q1_p1 === "Achieve financial freedom"}
                                     key="Achieve financial freedom"
                                     value="Achieve financial freedom"
@@ -437,6 +465,7 @@ const UserDetailsForm = () => {
                             <fieldset onChange={handlePriority2} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center">
                                 <div className="col-start-1 text-sm text-left">2nd Priority</div>
                                 <input
+                                    aria-required={true}
                                     checked={q1_p2 === "Rising cost of living"}
                                     key="Rising cost of living"
                                     value="Rising cost of living"
@@ -446,6 +475,7 @@ const UserDetailsForm = () => {
                                     className={`h-4 col-start-2 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
                                 <input
+                                    aria-required={true}
                                     checked={q1_p2 === "Safety net for family"}
                                     key="Safety net for family"
                                     value="Safety net for family"
@@ -455,6 +485,7 @@ const UserDetailsForm = () => {
                                     className={`h-4 col-start-3 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
                                 <input
+                                    aria-required={true}
                                     checked={q1_p2 === "Achieve financial freedom"}
                                     key="Achieve financial freedom"
                                     value="Achieve financial freedom"
@@ -469,6 +500,7 @@ const UserDetailsForm = () => {
                             <fieldset onChange={handlePriority3} aria-required={true} className="grid grid-cols-4 justify-items-center mt-2 items-center mb-10">
                                 <div className="col-start-1 text-sm text-left">Last Priority</div>
                                 <input
+                                    aria-required={true}
                                     checked={q1_p3 === "Rising cost of living"}
                                     key="Rising cost of living"
                                     value="Rising cost of living"
@@ -478,6 +510,7 @@ const UserDetailsForm = () => {
                                     className={`h-4 col-start-2 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
                                 <input
+                                    aria-required={true}
                                     checked={q1_p3 === "Safety net for family"}
                                     key="Safety net for family"
                                     value="Safety net for family"
@@ -487,6 +520,7 @@ const UserDetailsForm = () => {
                                     className={`h-4 col-start-3 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500`}
                                 />
                                 <input
+                                    aria-required={true}
                                     checked={q1_p3 === "Achieve financial freedom"}
                                     key="Achieve financial freedom"
                                     value="Achieve financial freedom"
@@ -501,11 +535,12 @@ const UserDetailsForm = () => {
                     <p className="mt-8 font-semibold text-md text-left ml-6 mr-2">
                         Towards your goals, which describe you best?
                     </p>
-                    <fieldset aria-required={true} className="ml-6 mt-4 mb-10">
+                    <fieldset className="ml-6 mt-4 mb-10">
                         <div className="space-y-5">
                             <div className="relative flex items-start">
                                 <div className="flex h-5 items-center">
                                     <input
+                                        aria-required={true}
                                         onChange={handleQ2}
                                         checked={q2 === "Take it slow"}
                                         value="Take it slow"
@@ -524,6 +559,7 @@ const UserDetailsForm = () => {
                             <div className="relative flex items-start">
                                 <div className="flex h-5 items-center">
                                     <input
+                                        aria-required={true}
                                         onChange={handleQ2}
                                         checked={q2 === "Fast and furious"}
                                         value="Fast and furious"
@@ -542,6 +578,7 @@ const UserDetailsForm = () => {
                             <div className="relative flex items-start">
                                 <div className="flex h-5 items-center">
                                     <input
+                                        aria-required={true}
                                         onChange={handleQ2}
                                         checked={q2 === "Consistency is key"}
                                         value="Consistency is key"

@@ -15,7 +15,7 @@ const ErrorAlert = ({open, setOpen}) => {
                         <div className="ml-3">
                             <h3 className="text-xl text-left mt-1 font-semibold text-red-800">An Error Occurred!</h3>
                             <div className="text-left mt-2">
-                                <p className="text-md text-red-800">We are unable to verify your information. Please key in your details again.</p>
+                                <p className="text-md text-red-800">We are unable to verify your information. Please key in your details again and ensure all fields are answered.</p>
                             </div>
                         </div>
                         <div className="ml-auto pl-3">
