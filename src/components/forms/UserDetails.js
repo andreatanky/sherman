@@ -3,7 +3,6 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import DuplicateAlert from "../alerts/DuplicateAlert";
 import SuccessModal from "../alerts/SuccessModal";
 import countries_code from "../../data/data";
-import ReadMoreReact from 'read-more-react';
 
 const UserDetailsForm = () => {
 
