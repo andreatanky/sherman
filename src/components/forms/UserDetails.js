@@ -39,8 +39,6 @@ const UserDetailsForm = () => {
     const [q3, setQ3] = useState("");
 
     const [loading, setLoading] = useState(false);
-    let [color, setColor] = useState("#ffffff");
-
 
     const handlePriority1 = (event) => {
         setQ1_p1(event.target.value);
@@ -106,8 +104,11 @@ const UserDetailsForm = () => {
     const handleVerification = async (event) => {
         event.preventDefault();
 
+        setLoading(true);
+
         if (firstName === "" || lastName === "" || country === "" || phoneNumber === "" || age === "" || q1_p1 === "" || q1_p2 === "" || q1_p3 === "" || q2 === "") {
             // Error Default
+            setLoading(false);
             setOpen(true);
             setIsError(true);
         } else {
@@ -144,16 +145,19 @@ const UserDetailsForm = () => {
                     setIsReadMore(false);
                     switch (data.response) {
                         case "valid":
+                            setLoading(false);
                             setOpen(true);
                             setIsError(false);
                             break;
                         case "duplicate":
+                            setLoading(false);
                             setOpen(true);
                             setIsError(true);
                             setDuplicate(true);
                             break;
                         default:
                             // Error Default
+                            setLoading(false);
                             setOpen(true);
                             setIsError(true);
                     }
