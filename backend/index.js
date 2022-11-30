@@ -51,11 +51,11 @@ app.post('/api/sms', (req, res) => {
                 googleSheetsInstance.spreadsheets.values.append({
                     auth, 
                     spreadsheetId, 
-                    range: "Sheet1!A:H", //sheet name and range of cells
+                    range: "Sheet1!A:I", //sheet name and range of cells
                     valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
                     resource: {
                         values: [[
-                            personInfo.name, personInfo.age, personInfo.phoneNum,
+                            new Date(), personInfo.name, personInfo.age, personInfo.phoneNum,
                             personInfo.first, personInfo.second, personInfo.third, personInfo.goal
                         ]],
                     },

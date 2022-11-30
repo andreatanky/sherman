@@ -3,10 +3,8 @@ import DuplicateAlert from "../alerts/DuplicateAlert";
 import SuccessModal from "../alerts/SuccessModal";
 import Spinner from "../alerts/Spinner";
 import countries_code from "../../data/data";
-import ReadMoreReact from 'read-more-react';
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState, CSSProperties } from "react";
-
 
 const UserDetailsForm = () => {
 
